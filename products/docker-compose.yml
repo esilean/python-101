@@ -1,0 +1,20 @@
+version: '3.1'
+
+networks:
+  backend:
+    name: fastapi101
+
+services:
+  products.api:
+    container_name: fastapi-product-api
+    build:
+      context: .
+    ports:
+      - 0.0.0.0:8000:8000
+    volumes:
+      - ./app:/app
+    restart: always
+    command: sh -c "uvicorn main:app --host 0.0.0.0"
+    networks:
+      - backend
+        
