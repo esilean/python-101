@@ -14,9 +14,5 @@ RUN apt-get update -y && apt-get install curl -y \
 && poetry install \
 && apt-get remove curl -y
 
-RUN addgroup --system app && adduser --system --group app
-
-USER app
-
 COPY ./app /app
 WORKDIR /app

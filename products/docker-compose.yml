@@ -5,16 +5,63 @@ networks:
     name: fastapi101
 
 services:
+  products.postgresql:
+    container_name: postgresql-products-api
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=adminpass
+      - POSTGRES_DB=products
+    volumes:
+      - ./app/data/postgres/data:/var/lib/postgresql/data
+    networks:
+      - backend
+
+  products.postgresql.tests:
+    container_name: postgresql-products-api-tests
+    image: postgres
+    ports:
+      - 5433:5432
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=adminpass
+      - POSTGRES_DB=products
+    volumes:
+      - ./app/data/postgres/data_tests:/var/lib/postgresql/data
+    networks:
+      - backend
+
+  pgadmin:
+    image: dpage/pgadmin4
+    ports:
+      - 5050:80
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=admin@admin.com.br
+      - PGADMIN_DEFAULT_PASSWORD=admin
+    volumes:
+      - ./app/data/postgres/pgadmin:/var/lib/pgadmin
+
+    depends_on:
+      - products.postgresql
+    networks:
+      - backend
+
   products.api:
-    container_name: fastapi-product-api
+    container_name: fastapi-products-api
     build:
       context: .
     ports:
       - 0.0.0.0:8000:8000
     volumes:
       - ./app:/app
+    environment:
+      - POSTGRES_CNNSTRING=postgresql+psycopg2://products.postgresql/products?user=admin&password=adminpass
     restart: always
-    command: sh -c "uvicorn main:app --host 0.0.0.0"
+    command: sh -c "uvicorn main:app --host 0.0.0.0 --reload"
+    depends_on:
+      - products.postgresql
     networks:
       - backend
         
