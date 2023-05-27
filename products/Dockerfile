@@ -15,4 +15,5 @@ RUN apt-get update -y && apt-get install curl -y \
 && apt-get remove curl -y
 
 COPY ./app /app
+COPY ./test /test
 WORKDIR /app

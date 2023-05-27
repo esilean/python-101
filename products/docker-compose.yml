@@ -56,6 +56,7 @@ services:
       - 0.0.0.0:8000:8000
     volumes:
       - ./app:/app
+      - ./test:/test
     environment:
       - POSTGRES_CNNSTRING=postgresql+psycopg2://products.postgresql/products?user=admin&password=adminpass
     restart: always

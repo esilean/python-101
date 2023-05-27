@@ -2,7 +2,7 @@ import re
 from pydantic import validator
 from app.schemas.base import CustomBaseModel
 
-class Category(CustomBaseModel):
+class CategoryRequest(CustomBaseModel):
     name: str
     slug: str
 
@@ -11,3 +11,7 @@ class Category(CustomBaseModel):
         if not re.match('^([a-z]|-|_)+$', value):
             raise ValueError('Invalid slug')
         return value
+    
+class CategoryResponse(CategoryRequest):
+    id: int
+    

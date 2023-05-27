@@ -1,12 +1,11 @@
 from fastapi import FastAPI
-from app.schemas.category import Category
+from app.routes.category_routes import router as category_routes
+
 
 app = FastAPI()
 
-@app.get('/health')
+@app.get('/health', tags=['HealthCheck'])
 def health_check():
     return { "health_check": "healthy" }
 
-@app.get('/category/{name}')
-def get_category(name: str):
-    return Category(name=name, slug=name).json()
+app.include_router(category_routes)
