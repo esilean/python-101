@@ -14,7 +14,7 @@ class Product(Base):
     id = Column('id', Integer, primary_key=True, autoincrement=True)
     name = Column('name', String, nullable=False)
     slug = Column('slug', String, nullable=False)
-    slug = Column('price', Float, nullable=False)
+    price = Column('price', Float, nullable=False)
     stock = Column('stock', Integer, nullable=False)
     created_at = Column('created_at', DateTime, server_default=func.now())
     updated_at = Column('updated_at', DateTime, server_default=func.now(), onupdate=func.now())

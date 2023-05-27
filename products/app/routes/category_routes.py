@@ -8,7 +8,7 @@ from app.use_cases.category import CategoryUseCases
 router = APIRouter(prefix='/categories', tags=['Category'])
 
 @router.post('/', response_model=None)
-def add_category(category: CategoryRequest = Body(default={ 'name': 'T-Shirt', 'slug': 't-shirt' }), 
+def add_category(category: CategoryRequest = Body(default={ 'name': 'Animes', 'slug': 'animes' }), 
                  db_session: Session = Depends(get_db_session)) -> None:
     uc = CategoryUseCases(db_session=db_session)
     uc.add_category(category=category)

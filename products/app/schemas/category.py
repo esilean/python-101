@@ -9,7 +9,7 @@ class CategoryRequest(CustomBaseModel):
     @validator('slug')
     def validate_slug(cls, value):
         if not re.match('^([a-z]|-|_)+$', value):
-            raise ValueError('Invalid slug')
+            raise ValueError('invalid slug')
         return value
     
 class CategoryResponse(CategoryRequest):
