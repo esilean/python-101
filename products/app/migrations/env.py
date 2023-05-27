@@ -12,7 +12,8 @@ from app.data.models import Base
 config = context.config
 
 # get url from env
-POSTGRES_CNNSTRING = config_decouple('POSTGRES_CNNSTRING')
+TEST_ON = config_decouple('TEST_ON', default=False, cast=bool)
+POSTGRES_CNNSTRING = config_decouple('TEST_POSTGRES_CNNSTRING') if TEST_ON else config_decouple('POSTGRES_CNNSTRING')
 config.set_main_option('sqlalchemy.url', POSTGRES_CNNSTRING)
 
 # Interpret the config file for Python logging.

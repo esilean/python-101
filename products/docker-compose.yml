@@ -45,6 +45,7 @@ services:
 
     depends_on:
       - products.postgresql
+      - products.postgresql.tests
     networks:
       - backend
 
@@ -59,10 +60,13 @@ services:
       - ./test:/test
     environment:
       - POSTGRES_CNNSTRING=postgresql+psycopg2://products.postgresql/products?user=admin&password=adminpass
+      - TEST_POSTGRES_CNNSTRING=postgresql+psycopg2://products.postgresql.tests/products?user=admin&password=adminpass
+      - TEST_ON=False
     restart: always
     command: sh -c "uvicorn main:app --host 0.0.0.0 --reload"
     depends_on:
       - products.postgresql
+      - products.postgresql.tests
     networks:
       - backend
         
