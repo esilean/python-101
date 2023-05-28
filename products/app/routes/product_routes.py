@@ -1,11 +1,11 @@
 from fastapi import APIRouter, Depends, Response, status, Body
 from sqlalchemy.orm import Session
 
-from app.routes.dependencies import get_db_session
+from app.routes.dependencies import get_db_session, authenticate
 from app.schemas.product import ProductRequest, ProductResponse
 from app.use_cases.product import ProductUseCases
 
-router = APIRouter(prefix='/products', tags=['Product'])
+router = APIRouter(prefix='/products', tags=['Product'], dependencies=[Depends(authenticate)])
 
 @router.post('/', response_model=None)
 def add_product(product: ProductRequest = Body(default={ 'name': 'Demon Slayer', 'slug': 'demon-slayer', 'price': 100.99, 'stock': 1, 'category_id': 0 }),

@@ -1,11 +1,11 @@
 from fastapi import APIRouter, Depends, Response, status, Body
 from sqlalchemy.orm import Session
 
-from app.routes.dependencies import get_db_session
+from app.routes.dependencies import get_db_session, authenticate
 from app.schemas.category import CategoryRequest, CategoryResponse
 from app.use_cases.category import CategoryUseCases
 
-router = APIRouter(prefix='/categories', tags=['Category'])
+router = APIRouter(prefix='/categories', tags=['Category'], dependencies=[Depends(authenticate)])
 
 @router.post('/', status_code=status.HTTP_201_CREATED, response_model=None)
 def add_category(category: CategoryRequest = Body(default={ 'name': 'Animes', 'slug': 'animes' }), 

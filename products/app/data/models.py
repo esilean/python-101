@@ -20,3 +20,10 @@ class Product(Base):
     updated_at = Column('updated_at', DateTime, server_default=func.now(), onupdate=func.now())
     category_id = Column('category_id', ForeignKey('Categories.id'), nullable=False)
     category = relationship('Category', back_populates='products')
+
+class User(Base):
+    __tablename__ = 'Users'
+    username = Column('username', String, primary_key=True)
+    password = Column('password', String, nullable=False)
+    created_at = Column('created_at', DateTime, server_default=func.now())
+    updated_at = Column('updated_at', DateTime, server_default=func.now(), onupdate=func.now())

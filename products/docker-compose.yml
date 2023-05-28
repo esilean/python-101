@@ -62,6 +62,7 @@ services:
       - POSTGRES_CNNSTRING=postgresql+psycopg2://products.postgresql/products?user=admin&password=adminpass
       - TEST_POSTGRES_CNNSTRING=postgresql+psycopg2://products.postgresql.tests/products?user=admin&password=adminpass
       - TEST_ON=False
+      - TOKEN_SECRET=imlearningfastapi123!
     restart: always
     command: sh -c "uvicorn main:app --host 0.0.0.0 --reload"
     depends_on:
